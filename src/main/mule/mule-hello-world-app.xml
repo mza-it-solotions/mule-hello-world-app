@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+
+	<http:listener-config name="HTTP_Listener_config"
+		doc:name="HTTP Listener config" doc:id="e23f7094-c51b-4ac8-a37b-902d5e27db17">
+		<http:listener-connection host="${http.listener.host}"
+			port="${http.listener.port}" />
+	</http:listener-config>
+
+	<configuration-properties doc:name="Configuration properties"
+		doc:id="bf5d8cbd-a0bc-4f61-9b11-e356995c8ad2" file="config/${mule.env}.yaml" />
+
+	<global-property doc:name="Global Property"
+		doc:id="4e0604a9-7f8d-4acc-a339-843cddf0deb8" name="mule.env" value="local" />
+		
+	<flow name="main-flow" doc:id="6f95f27d-f598-4b76-865b-7445e52ceae9">
+		<http:listener doc:name="Listener"
+			doc:id="f82c3ed9-28a8-4e1a-a1ba-10b993cc601a" config-ref="HTTP_Listener_config"
+			path="${http.listener.path}" />
+		<logger level="INFO" doc:name="Initial Log"
+			doc:id="a9a701d8-eeb6-4666-bf4f-8fd8acd30cbe" message="main-flow is invoked." />
+		<set-payload value="#['Hello World']" doc:name="Set Payload"
+			doc:id="c2f90bb4-9dd4-44fe-aec4-80f91ad19d58" mimeType="text/plain" />
+		<logger level="INFO" doc:name="Exit Log"
+			doc:id="b2d0e0ce-e183-417f-9393-9945590ef755" message="Exit from main-flow." />
+	</flow>
+</mule>

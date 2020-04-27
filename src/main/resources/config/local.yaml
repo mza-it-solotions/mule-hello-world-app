@@ -1,0 +1,7 @@
+#HTTP Listener
+
+http:
+  listener:
+    host: "0.0.0.0"
+    port: "8081"
+    path: "/hello-world"
